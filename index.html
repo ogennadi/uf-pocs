@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Sortable - Portlets</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        body {
+            min-width: 520px;
+        }
+        .column {
+            /*width: 170px;*/
+            float: left;
+            padding-bottom: 100px;
+        }
+        .portlet {
+            margin: 0 1em 1em 0;
+            padding: 0.3em;
+        }
+        .portlet-header {
+            padding: 0.2em 0.3em;
+            margin-bottom: 0.5em;
+            position: relative;
+        }
+        .portlet-toggle {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            margin-top: -8px;
+        }
+        .portlet-content {
+            padding: 0.4em;
+            width: 30em;
+        }
+        .portlet-placeholder {
+            border: 1px dotted black;
+            margin: 0 1em 1em 0;
+            height: 50px;
+        }
+        .section {
+            padding-right: 10px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+
+
+        function numberSections() {
+            $(".section").each(function (index) {
+                $(this).text(index + 1);
+            });
+        }
+
+        $( function() {
+            $( ".column" ).sortable({
+                connectWith: ".column",
+                handle: ".section",
+                cancel: ".portlet-toggle",
+                placeholder: "portlet-placeholder ui-corner-all"
+            });
+
+            $( ".portlet" )
+                .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+                .find( ".portlet-header" )
+                .addClass( "ui-widget-header ui-corner-all" )
+                .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+
+            $( ".portlet-toggle" ).on( "click", function() {
+                var icon = $( this );
+                icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
+                icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
+            });
+
+            $( ".column" ).on( "sortstop", function( event, ui ) {
+                numberSections();
+            } );
+
+            numberSections();
+        } );
+
+
+
+    </script>
+</head>
+<body>
+
+<div class="column">
+
+    <div class="portlet">
+        <div class="portlet-header" contenteditable><span class="section"></span>Name and Address</div>
+        <div class="portlet-content" contenteditable>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+    </div>
+
+    <div class="portlet">
+        <div class="portlet-header" contenteditable><span class="section"></span>Taxpayer Identification Number (TIN)</div>
+        <div class="portlet-content"  contenteditable>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+    </div>
+
+    <div class="portlet">
+        <div class="portlet-header" contenteditable><span class="section"></span>Certification</div>
+        <div class="portlet-content" contenteditable>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+    </div>
+
+    <div class="portlet">
+        <div class="portlet-header" contenteditable><span class="section"></span>General Instructions</div>
+        <div class="portlet-content"  contenteditable>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

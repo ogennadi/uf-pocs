@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <style>
+        div.editable {
+            border: 1px solid;
+            height: 10em;
+        }
+
+        ul {
+
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+        function showVariableList(variables) {
+            $("ul").empty();
+            variables.forEach(variable => $("ul").append(`<li>${variable}</li>`));
+        }
+
+        function processVariables() {
+            let editableContent = $(".editable").text();
+            let vars = editableContent.match(/{{[^{}]+}}/g);
+            showVariableList(vars);
+        }
+
+        $(function () {
+            $(".editable").on('input', () => {
+                processVariables();
+            });
+
+            processVariables();
+        });
+
+
+    </script>
+</head>
+<body>
+<div contenteditable="true" class="editable">Ass is not {{ass}} but a {{fight}}</div>
+<div class="variables">
+    <h2>Variables</h2>
+    <ul>
+        <li>Example</li>
+    </ul>
+</div>
+</body>
+</html>
